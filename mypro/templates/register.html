@@ -252,3 +252,56 @@
             s2 = $('.img')[0].files[0]
              $('.img').attr('src',window.URL.createObjectURL($('.img')[0].files[0]))
      })
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      <form action="" method="POST"> 
+        {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="email" class="cols-sm-2 control-label" required>Your Email</label>
+                <div class="input-group">
+                    
+                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" required/>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="password" class="cols-sm-2 control-label" >Password</label>
+                <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                 <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password" required/>
+                </div>
+                
+            </div>
+            <div class="col-md-6">
+                <button type="submit" class=" log btn btn-primary btn-center ml-4 mt-4">LOGIN</button>
+            </div>
+        </div>
+
+    </div>
+</form>
