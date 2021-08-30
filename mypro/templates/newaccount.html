@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+     <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  *{
+    background-color: aliceblue;
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="row justify-content-center">
+   <div class="col-md-8">
+      <div class="card">
+        <h1>UPDATE PROFILE</h1>
+           <div class="card-body">
+           <form action="" method="POST"> 
+           {% csrf_token %}
+            <form >
+        
+              <label>PHONE NUMBER</label>
+              <input type="number" name="phone" value="{{request.user.profile.phone}}"> 
+              <label>ADDRESS</label>
+              <input type="text" name="address" value="{{request.user.profile.address}}"> 
+               <label>ACCOUN TNO.</label>
+              <input type="text" name="acc" disabled value="{{request.user.profile.account}}"> 
+
+               <label>ADD Money</label>
+              {% comment %} <input type="number" name="money" value="{{request.user.profile.money}}">  {% endcomment %}
+              <select name="gender">
+                <option >Gender</option>
+                <option {% ifequal request.user.profile.gender 'm' %} selected {% endifequal %} value="m">Male</option>
+                <option {% ifequal request.user.profile.gender 'f'%} selected {% endifequal %} value="f">Female</option>
+              </select>
+
+              <button type="submit" class=" supdate btn btn-success"> SAVE CHANGES</button>
+             
+
+              
+          </form>
+        
+          </div>
+     </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+     $('.img').change((e)=>{
+            console.log(e.type)
+            let s1,s2;
+            s1 = e.target.files[0]
+            s2 = $('.img')[0].files[0]
+            $('.img').attr('src',window.URL.createObjectURL($('.img')[0].files[0]))
+     })
+
+    
+
+</body>
+</html>

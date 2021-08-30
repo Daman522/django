@@ -1,5 +1,10 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from django.db.models.fields import related
+from django.contrib.auth.models import User,AbstractBaseUser
+
+
+
 
 # Create your models here.
 
@@ -22,7 +27,7 @@ class Phone(models.Model):
         return f'Price = {self.price} || Brand = {self.brand.name} || ID = {self.brand.id}'
 
 
-class Register(models.Model):
+class Profile(models.Model):
     male = "m"
     female = "f"
    
@@ -31,12 +36,15 @@ class Register(models.Model):
         (female, "Female"),
         
     ]
-    name=models.CharField(max_length=500)
-    email=models.EmailField(null=False)
-    password=models.CharField(max_length=30)
+    user=models.OneToOneField(User,on_delete=CASCADE,default=4,related_name="profile")
     address=models.CharField(max_length=6000)
     phone=models.IntegerField()
-    img=models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100)
+    img=models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=100,null=True,blank=True)
+    money=models.IntegerField(blank=True, null=True)
+    account =models.IntegerField(blank=True, null=True)
     gender = models.CharField(
         max_length=25, default="", choices=choices)
+   
+    def __str__(self):
+       return f" NAME-- {self.user.username}+ GENDER--{self.gender}" 
    

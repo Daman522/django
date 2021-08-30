@@ -19,5 +19,13 @@ from myappp.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',register,name="register"),
+    path('profile/',UpdateProfile,name="profile"),
+    path('account/',UpdateAccount,name="account"),
+    path('nav/',nav,name="nav"),
+    path('reg/',Register,name="register"),
+    path('log/',Login,name="login"),
+    path('logout',Logout,name="logout"),
+
+
+
 ]
