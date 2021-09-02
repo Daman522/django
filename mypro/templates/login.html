@@ -7,18 +7,98 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" href= 
+ "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
   <style>
-    *{
-        background-color: aliceblue;
-    }
+
 </style>
 </head>
 <body>
-    <form action="" method="POST"> 
+  <div class="container">
+    <div class="row" >
+        
+    </div>
+    <form action="" method="POST">
+      {% csrf_token %}
+        <div class="row mx-auto p-4 mt-5 bg-light shadow border" style="max-width: 412px;border-radius: 0.5rem;">
+            <div class="col-md-12 text-center mt-2 mb-4 border-bottom">
+                <span class=" h6 m-0 text-success font-weight-bold">LOGIN</span>
+            </div>
+
+            {% comment %} <div class="col-md-1 mt-4 form-group d-flex text-muted justify-content-center align-items-center">
+                <i class="fas fa-user-edit icon" style="font-size: 26px;"></i>
+              </div>
+            <div class="col-md-11 mt-4 form-group   ">
+                <input type="text"  class="form-control" placeholder="Enter Your Username" name="username"  required>  
+            </div> {% endcomment %}
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+              <i class="fa fa-envelope icon" style="font-size: 26px;"></i>
+            </div>
+            <div class="col-md-11 mt-4 form-group">
+                <input type="email"  class="form-control" placeholder="Enter Your Email" name="email"  required>  
+            </div>
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+                <i class="fa fa-key  icon" style="font-size: 26px;"></i>
+              </div>
+            <div class="col-md-11 mt-4 form-group">
+                <input type="password"  class="form-control" placeholder="Enter Your Password" name="password" required>  
+            </div>
+
+             <div class="col-12 mt-4">
+                <button type="submit" class="login btn btn-success w-100">LOGIN</button>
+            </div>
+            {% if messages %}
+          {% for message in messages%}
+             <div class="alert alert-success">{{ message }}</div> 
+           {% endfor %}
+        {% endif %}
+        </div>
+    </form>
+ </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% comment %} <form action="" method="POST"> 
         {% csrf_token %}
     <div class="container">
         <div class="row">
@@ -58,6 +138,6 @@
         {% endif %}
 
     </div>
-</form>
+</form> {% endcomment %}
 </body>
 </html>

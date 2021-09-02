@@ -8,32 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/main.css' %}"> {% endcomment %}
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
  <style>
-     *{
+     /* *{
          background-color: aliceblue;
+     } */
+     img{
+       height: 40px;
+       width: 50px;
      }
  </style>
 </head>
 <body>
-   
+  <div id="myPlot" style="width:100%;max-width:700px"></div>
+<!-- {{da}} -->
   
-    <nav class="navbar navbar-inverse">
+   
+  {{arr}}
+    <nav class="navbar navbar-expand p-5">
         <div class="container-fluid">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+          <img class="" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPoY1hXAOOqGRdSg-RFSxDBKBvoExUMLfxig&usqp=CAU">
+            <!-- <a class="navbar-brand" href="#">WebSiteName</a> -->
           </div>
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
        {% if request.user.is_authenticated %}
           <span class="alert alert-warning"> WELCOME {{request.user}} </span> 
         <li class="active"><a href="{% url 'logout' %}">LOGOUT</a></li>
-        <li class="active"><a href="{% url 'profile' %}">Update Profile</a></li>
+        <li class="active"><a href="{% url 'profile' %}">UPDATE PROFILE</a></li>
+        <li class="active"><a href="{% url 'account' %}">UPDATE ACCOUNT</a></li>
+
         {% else %}
    
-            <li class="active"><a href="{% url 'createaccount' %}">CREATE NEW ACCOUNT </a></li>
+            {% comment %} <li class="active"><a href="{% url 'createaccount' %}">CREATE NEW ACCOUNT </a></li> {% endcomment %}
             <li class="active"><a href="{% url 'login' %}">LOGIN</a></li>
             <li class="active"><a href="{% url 'register' %}">Register</a></li>
              
@@ -48,5 +60,95 @@
              <div class="alert alert-success">{{ message }}</div> 
            {% endfor %}
         {% endif %}
+
+        {{row1}}
+        {% for i in arr%}
+        <h1><b>Date:</h1></b> {{ i}}<br>
+       
+    {% endfor %}
+  
+  <script>
+
+
+//  countNumber([1,2,3,4,5],3)
+    d={{b|safe}}
+    var XArray = ['aug','sep'];
+    var YArray = [];
+    var a=0;
+    var s=0;
+    var j=0;
+    var f=0;
+    array=[]
+    d.forEach((e,i)=>{
+    
+     if(e.slice(5,7)=='01'){
+      j= j+1;
+     }
+     if(e.slice(5,7)=='02'){
+      f= f+1;
+     }
+     if(e.slice(5,7)=='08'){
+      a= a+1;
+     }
+      if(e.slice(5,7)=='09'){
+        s=s+1;
+        console.log(s,'sssssss')
+      }
+     
+
+    //  console.log(d,'---')
+    //  console.log(e.slice(5,7)) 
+    }
+    )
+array.push(j)
+array.push(f)
+array.push(a)
+array.push(s)
+
+
+
+// {% comment %} for (let i = 0; i < x.length; i++) {
+
+//   if(x[i]==1){
+//   c1 = c1+1;
+//   }
+//   if(i==2){
+//   c2 = c2+1;
+//   }
+  
+// } {% endcomment %}
+
+
+// Define Data
+// var xArray = ["August","September"];
+// var yArray = array;
+
+// var layout = {title:"USERS DATA"};
+
+// var data = [{labels:xArray, values:yArray, type:"pie"}];
+
+// Plotly.newPlot("myPlot", data, layout);
+
+
+
+
+
+
+
+var xArray = ["January","Feburary","August", "September"];
+var yArray = array;
+
+var data = [{
+  x:xArray,
+  y:yArray,
+  type:"bar",
+  marker: {color:"rgba(255,0,0,0.6)"}
+}];
+
+var layout = {title:"User Data"};
+
+Plotly.newPlot("myPlot", data, layout);
+</script>
+
 </body>
 </html>

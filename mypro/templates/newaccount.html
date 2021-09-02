@@ -6,17 +6,126 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <link rel="stylesheet" href= 
+  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">  
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> 
   <style>
-  *{
-    background-color: aliceblue;
-  }
+ 
   </style>
 </head>
 <body>
+ <div class="container">
+    <div class="row" >
+        
+    </div>
+    <form action="" method="POST">
+      {% csrf_token %}
+        <div class="row mx-auto p-4 mt-5 bg-light shadow border" style="max-width: 412px;border-radius: 0.5rem;">
+            <div class="col-md-12 text-center mt-2 mb-4 border-bottom">
+                <span class=" h6 m-0 text-success font-weight-bold">UPDATE PROFILE</span>
+            </div>
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted justify-content-center align-items-center">
+                <i class="fas fa-phone-alt icon" style="font-size: 26px;"></i>
+              </div>
+            <div class="col-md-11 mt-4 form-group   ">
+                <input type="text"  class="form-control" placeholder="Enter Your Phone Number"name="phone" value="{{request.user.profile.phone}}">  
+            </div>
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+              <i class="fas fa-map-marker-alt icon" style="font-size: 26px;"></i>
+            </div>
+            <div class="col-md-11 mt-4 form-group">
+                <input type="text"  class="form-control" placeholder="Enter Your Address" name="address" value="{{request.user.profile.address}}">  
+            </div>
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+                <i class="fas fa-hand-point-right  icon" style="font-size: 26px;"></i>
+              </div>
+            <div class="col-md-11 mt-4 form-group">
+                <input type="number"  class="form-control" placeholder="Your Account Number"name="acc" disabled value="{{request.user.profile.account}}">  
+            </div>
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+              <i class="fa fa-plus icon" style="font-size: 26px;"></i>
+            </div>
+            <div class="col-md-11 mt-4 form-group">
+                <input type="number"  class="form-control" placeholder="Total Money" name="" disabled value="{{request.user.profile.money}}">  
+            </div>
+
+
+
+
+            <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+              <i class="fa fa-plus icon" style="font-size: 26px;"></i>
+            </div>
+            <div class="col-md-11 mt-4 form-group">
+                <input type="number"  class="form-control addmoney" placeholder="Add Money" name="money2">  
+            </div>
+              
+               <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">
+              <i class="fa fa-plus icon" style="font-size: 26px;"></i>
+            </div>
+            <div class="col-md-11 mt-4 form-group">
+            <select name="gender" class="form-control">
+            <option>Gender</option>
+            <option {% ifequal request.user.profile.gender 'f'%} selected {% endifequal %} value="f">Female</option>
+             <option {% ifequal request.user.profile.gender 'm' %} selected {% endifequal %} value="m">Male </option>
+              </select>
+                  
+            </div>
+
+              {% comment %} <div class="col-md-11" class="form-group"> 
+               <select name="gender" class="form-control">
+                <option >Gender</option>
+                <option {% ifequal request.user.profile.gender 'm' %} selected {% endifequal %} value="m">Male</option>
+                <option {% ifequal request.user.profile.gender 'f'%} selected {% endifequal %} value="f">Female</option>
+              </select>
+              </div> {% endcomment %}
+             
+
+
+             <div class="col-12 mt-4">
+                <button type="submit" class=" update btn btn-success w-100">SAVE CHANGES</button>
+            </div>
+        
+        </div>
+    </form>
+ </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} 
 <div class="container">
   <div class="row justify-content-center">
    <div class="col-md-8">
@@ -36,35 +145,28 @@
 
                <label>ADD Money</label>
               {% comment %} <input type="number" name="money" value="{{request.user.profile.money}}">  {% endcomment %}
-              <select name="gender">
+              {% comment %} <select name="gender">
                 <option >Gender</option>
                 <option {% ifequal request.user.profile.gender 'm' %} selected {% endifequal %} value="m">Male</option>
                 <option {% ifequal request.user.profile.gender 'f'%} selected {% endifequal %} value="f">Female</option>
-              </select>
+              </select> {% endcomment %}
 
-              <button type="submit" class=" supdate btn btn-success"> SAVE CHANGES</button>
+              {% comment %} <button type="submit" class=" supdate btn btn-success"> SAVE CHANGES</button> {% endcomment %}
              
 
               
-          </form>
+          {% comment %} </form>
         
           </div>
      </div>
     </div>
   </div>
-</div>
+</div> {% endcomment %} 
 
 
 
 
-<script>
-     $('.img').change((e)=>{
-            console.log(e.type)
-            let s1,s2;
-            s1 = e.target.files[0]
-            s2 = $('.img')[0].files[0]
-            $('.img').attr('src',window.URL.createObjectURL($('.img')[0].files[0]))
-     })
+
 
     
 

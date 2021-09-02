@@ -7,10 +7,45 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 import random
+from .models import *
+import csv
+import pandas as pd 
 
 
 
 # Create your views here.
+
+def Click(request):
+    arr=[]
+    for i in User.objects.all():
+        # print(i.last_login)
+        d= str(i.last_login)
+        c=d[0:10]
+        # print(type(c))
+        arr.append(c)
+    f=open('/home/pulkit/Desktop/Project/mypro/myappp/file.csv','a')
+    writer = csv.writer(f)
+    writer.writerow(arr)
+    data = pd.read_csv('/home/pulkit/Desktop/Project/mypro/myappp/file.csv') 
+    df= pd.DataFrame({
+        "dates": [data]
+    })
+    # print("dataframe datan ;;;",df)
+    # row1 = df.iloc[1]
+    # print(row1)
+    f.close()
+
+    b = []
+    
+    print(type(arr))
+    for i in arr:
+        print(type(i))
+        b.append(i)
+        # i.save()
+
+    # arr = [1,2,3]
+    return render(request,'navbar.html',locals())
+
 def nav(request):
     return render(request,'navbar.html')
 
@@ -28,13 +63,14 @@ def Register(request):
             return HttpResponseRedirect(reverse('register'))
             #  return HttpResponse("USERNAME ALREADY TAKEN")
         
-       
+        if password(len)<=4:
+             messages.error(request, 'Password is too short')
         if password!=confirm:
             messages.error(request, 'PASSWORD DOESNT MATCH')
             return HttpResponseRedirect(reverse('register'))
         reg.save()
 
-        p = Profile.objects.create(user=reg,address="punjab",phone=1234)
+        p = Profile.objects.create(user=reg,address="",phone=91)
         account = random.randint(190000,250000)
         p.account = account
         p.save()
@@ -91,7 +127,7 @@ def UpdateProfile(request):
         request.user.profile.phone=request.POST.get('phone')
         request.user.profile.address=request.POST.get('address')
         request.user.profile.gender=request.POST.get('gender')
-        # request.user.profile.money=request.POST.get('money')
+        request.user.profile.money= request.user.profile.money + int(request.POST.get('money2'))
         request.user.profile.save()
         return HttpResponseRedirect(reverse('profile'))
     return render(request,'newaccount.html')
