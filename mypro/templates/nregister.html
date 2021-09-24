@@ -1,0 +1,192 @@
+{% extends 'navbar.html' %}
+{% block content %}  
+    <div class="container-fluid">
+     <div class="row mt-4">
+        <div class="col-md-offset-4 col-md-4 text-center mt-4">
+            <div class="col mt-4"> </div>
+                <div class="col mt-4"> </div>
+                <h1 class=' h4 text-dark font-weight-bold text-bold mt-4'>REGISTER</h1>
+                 
+                      <div class="row">
+                          <div class=" d-flex justify-content-center align-items-center" >
+
+                            <div class="col-12">
+                              <div class="form-group">
+                                <span><i class="fas fa-users"></i>
+                                    <input type="text" class="input-sm chat-input form-control"  placeholder="Enter Username" id="username" required name="username"/>
+                                    </span>
+                                <span class="username_error" style="color: red; display: none;">username is required</span>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                            <span><i class="fas fa-user"></i>
+                            <input type="text" class="input-sm chat-input  form-control"  placeholder="Enter Your Last Name" required id="last_name" name="last_name"/>
+                        </span>
+                        <span class="lastname_error" style="color: red; display: none;">lastname is required</span> 
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                            <span><i class="fas fa-envelope"></i>
+                            <input type="email" class="input-sm chat-input  form-control"  placeholder="Email" required id="email" name="email"/>
+                            </span>
+                        <span class="email_error" style="color: red; display: none;">email is required</span>
+                            </div>
+                         </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                            <span><i class="fas fa-unlock-alt"></i>
+                            <input type="password" class="input-sm chat-input  form-control"  placeholder="Password" required id="password" name="password"/>
+                            </span> 
+                        <span class="password_error" style="color: red; display: none;">length of password is short</span> 
+                        <span class="passwordnull_error" style="color: red; display: none;">enter password</span> 
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                            <span><i class="fas fa-unlock-alt"></i>
+                            <input type="password" class="input-sm chat-input  form-control"  placeholder="Confirm Password" id="confirm" required  name="confirm"/>
+                            </span> 
+                        <span class="confirm_error" style="color: red; display: none;">password doesnt match</span> 
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group"> 
+                            <span> <input type="checkbox" name="admin"  id="admin">
+                            <label>Is admin</label>
+                            </span> 
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                            <span class="group-btn">
+                                <button class=" register btn btn-success btn-md  form-control">Register <i class="fa fa-sign-in"></i></button>
+                            </span>
+                    </div>
+                    </div>
+                    <div class="msg"></div>
+                </div>
+            </div>
+        </div>
+     
+
+    </div>
+    <script type="">
+       
+        $(document).ready(function(){
+         $('.register').click(function(){
+            let submit = true;
+            if ($('#username').val() == null || $('#username').val() == ''){
+                submit = false;
+                $('#username').addClass(['border','border-danger'])
+                $('.username_error').css('display','block');
+            }
+            else if ($('#username').val() != null || $('#username').val() != ''){
+                submit = true;
+                $('#username').removeClass(['border','border-danger'])
+                $('.username_error').css('display','none');
+            }
+            if ($('#last_name').val() == null || $('#last_name').val() == ''){
+                submit = false;
+               $('.lastname_error').css('display','block');
+            }
+            else if ($('#last_name').val() !=  null || $('#last_name').val() !=  ''){
+               submit = true;
+             $('.lastname_error').css('display','none');
+            }
+            if ($('#email').val() == null || $('#email').val() == ''){
+                submit = false;
+               $('.email_error').css('display','block');
+            }
+            else if ($('#email').val() != null  || $('#email').val() != '') {
+                submit = true;
+               $('.email_error').css('display','none');
+            }
+
+            if ($('#password').val() == null  || $('#password').val() == '') {
+                submit = false;
+               $('.passwordnull_error').css('display','block');
+              
+            }
+            else if ($('#password').val() != null  || $('#password').val() != '') {
+                if ($('#password').val().length<4 && $('#password').val() != '' ){
+                submit = false;
+               $('.password_error').css('display','block');
+            }
+            else{
+                submit = true;
+                $('.password_error').css('display','none');
+            }
+        }
+            
+          
+         if($('#confirm').val() == null || $('#confirm').val() == ''){
+              submit = false;
+              $('.confirm_error').css('display','block');
+
+          }
+        else if($('#confirm').val()== $('#password').val()){
+              submit= true;
+              $('.confirm_error').css('display','none');
+          }
+
+            else if ($('#confirm').val()!=$('#password').val()){
+                submit = false;
+               $('.confirm_error').css('display','block');
+            }
+            console.log(submit)
+            if (submit){
+                $.ajax({
+                 type:"POST",
+                 url:"{% url 'nregister' %}" ,
+                 data:{'username':$('#username').val(),
+                        'last_name':$('#last_name').val(),
+                        'email':$('#email').val(),
+                        'password':$('#password').val(),
+                        'confirm':$('#confirm').val(),
+                        'admin':$('#admin:checked').val(),
+                        'csrfmiddlewaretoken':"{{csrf_token}}"  
+                    },
+                success:function(res){
+                    if (res!=null){
+                        if ($('.er').length == 0 || $('.er2').length == 0){
+                            if (res.error_username){
+                                $('.msg').append(`<div class="er alert alert-danger">${res.error_username}</div>` )
+                            }
+                            if (res.error_email){
+                                $('.msg').append(`<div class="er2 alert alert-danger">${res.error_email}</div>` )
+                            }
+                        }
+                        else{
+                           
+                        }
+                            
+                        // if ($('.ms').length == 0){ $('.msg').append(`<div class="ms alert alert-primary">${res.msg}</div>`)}
+                        // else{
+                            if (res.msg){
+                               
+                            }       
+                        }
+                    // }
+
+                    if (res.msg == "Registered!"){
+                        $('body').append(`<div class="ms alert alert-primary">${res.msg}</div>`)
+                        setTimeout(function () {
+                                    window.location.href = "{% url 'nlogin' %}"
+                                    }, 3000)
+                    }
+                
+                }
+            })
+            }
+        })
+    });
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+
+{% endblock content %}
+</body>
+</html>

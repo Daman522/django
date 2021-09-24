@@ -52,7 +52,7 @@
               <i class="fa fa-plus icon" style="font-size: 26px;"></i>
             </div>
             <div class="col-md-11 mt-4 form-group">
-                <input type="number"  class="form-control" placeholder="Total Money" name="" disabled value="{{request.user.profile.money}}">  
+                <input type="number"  class="form-control" placeholder="Total Money" name="money" disabled value="{{request.user.profile.money}}">  
             </div>
 
 
@@ -62,7 +62,7 @@
               <i class="fa fa-plus icon" style="font-size: 26px;"></i>
             </div>
             <div class="col-md-11 mt-4 form-group">
-                <input type="number"  class="form-control addmoney" placeholder="Add Money" name="money2">  
+                <input type="number"  class="form-control addmoney" placeholder="Add Money" name="money2" value="{{request.user.profile.money}}">  
             </div>
               
                <div class="col-md-1 mt-4 form-group d-flex text-muted  justify-content-center align-items-center">

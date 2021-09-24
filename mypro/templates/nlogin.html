@@ -1,0 +1,131 @@
+{% extends 'navbar.html' %}
+{% block content %}    
+    <div class="container-fluid">
+        <div class="row mt-4">
+           <div class="col-md-offset-4 col-md-4 text-center mt-4">
+            <div class="col mt-4"> </div>
+            <div class="col mt-4"> </div>
+            <h1 class=' h4 text-dark font-weight-bold text-bold mt-4'>LOGIN</h1>
+                    <!-- <form method="POST">  -->
+                    {% csrf_token %} 
+                      <div class="row">
+                        <div class=" d-flex justify-content-center align-items-center" >
+    `                   <div class="col-12 ">
+                            <div class="form-group">
+                            <span><i class="fas fa-envelope"></i>
+                            <input type="email" class="input-sm chat-input form-control" id="email"  placeholder="Email" required name="email"/>
+                        </span> 
+                    </span> 
+                    <span class="email_error" style="color: red; display: none;">email is required</span> 
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                    <span><i class="fas fa-unlock-alt"></i>
+                        <input type="password" class="input-sm chat-input form-control" id="password"  placeholder="Password" required  name="password"/>
+                    </span> 
+                
+                <span class="password_error" style="color: red; display: none;">enter password</span> 
+             </div>
+             <div class="wrapper">
+                <span class="group">
+                 <a href="{%url 'forget' %}" class=" forgot btn btn-danger btn-md">Forgot Password </a>
+                 </span>
+             </div>
+                <div class="wrapper mt-4">
+                   <span class="group-btn">
+                    <button  class=" login btn btn-success btn-md form-control">Login <i class="fa fa-sign-in"></i></button>
+                    </span>
+                </div>
+                
+            </div>
+                </div>
+            <!-- </form> -->
+            </div>
+        </div>
+    </div>
+     
+        <!-- {% if messages %}
+        {% for message in messages%}
+           <div class="alert alert-success">{{ message }}</div> 
+         {% endfor %}
+      {% endif %} -->
+    </div>
+
+
+    
+
+
+<script type="">
+    $(document).ready(function(){
+        $('.login').click(function(){
+            let submit = true;
+            if ($('#email').val() == null || $('#email').val() == ''){
+                submit = false;
+                $('#email').addClass(['border','border-danger'])
+               $('.email_error').css('display','block');
+            }
+            else if ($('#email').val() != null || $('#email').val() != ''){
+                submit = true;
+                $('#email').removeClass(['border','border-danger'])
+               $('.email_error').css('display','none');
+            }
+            if ($('#password').val() == null || $('#password').val() == ''){
+                submit = false;
+               $('.password_error').css('display','block');
+            }
+            else if ($('#password').val() != null || $('#password').val() != ''){
+                submit = true;
+               $('.password_error').css('display','none');
+            }
+            console.log(submit)
+            if(submit==true){
+                $.ajax({
+                type:"POST",
+                url:"{% url 'nlogin' %}" ,
+                data:{
+                    'email':$('#email').val(),
+                    'password':$('#password').val(),
+                    'csrfmiddlewaretoken':"{{csrf_token}}",
+                },
+                cache: false,
+                timeout: 600000,
+                success:function(res){
+                    console.log(res)
+
+                    if (res.success){
+                        setTimeout(() => {
+                            window.location.href = "/nav/"    
+                        }, 2000);
+                        $('.alert').remove();
+                        $('body').append(`<div class="alert alert-success">Logged in, redirecting to home!</div>`)
+                    }
+                    else{
+                        $('.alert').remove();
+                        $('body').append(`<div class="alert alert-danger">${res.error}</div>`)
+                    }
+                }
+            })
+            }
+         
+        })
+    })
+</script>
+  
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+ 
+   
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from myappp.views import *
+# from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +26,22 @@ urlpatterns = [
     path('reg/',Register,name="register"),
     path('log/',Login,name="login"),
     path('logout',Logout,name="logout"),
+    # path('resetpassword/',Reset,name="reset"),
     path('click',Click,name="click"),
+    path('nlogin',NewLogin,name="nlogin"),
+    path('nregister',NewRegister.as_view(),name="nregister"),
+    path('adduser',AddUser,name="adduser"),
+    path('forget',ForgetPassword.as_view(),name="forget"),
+    path('resetpassword/<int:code>',ResetPassword,name="resetpassword"),
+    path('send',EmailSend,name="send"),
+    # path('edit/',EditButton,name="edit"),
+    path('edit/<int:id>/<slug:n>',EditButton,name="edit"),
+    path('delete/<int:id>',DeleteButton,name="delete"),
+
+
+
+
+
 
 
 
@@ -40,22 +56,22 @@ urlpatterns = [
 
 
 
-from django.contrib import admin
-from django.urls import path
-from django.conf.urls import url, include
-from . import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf.urls.static import static
-from django.conf import settings
+# from django.contrib import admin
+# from django.urls import path
+# from django.conf.urls import url, include
+# from . import views
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from django.conf.urls.static import static
+# from django.conf import settings
 
-urlpatterns=[
+# urlpatterns=[
 
-    path('',views.home,name="index"),
-    path('nav/',views.nav,name="nav"),
-    path('login/',views.Log,name="login"),
-    path('createaccount/',views.createaccount,name="createaccount"),
+#     path('',views.home,name="index"),
+#     path('nav/',views.nav,name="nav"),
+#     path('login/',views.Log,name="login"),
+#     path('createaccount/',views.createaccount,name="createaccount"),
 
 
 
     
-]
+# ]
