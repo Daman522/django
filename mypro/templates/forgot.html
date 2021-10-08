@@ -1,0 +1,69 @@
+{% extends 'navbar.html' %}
+{% block content %}  
+<div class="container-fluid">
+    <div class="row mt-4">
+       <div class="col-md-offset-4 col-md-4 text-center mt-4">
+        <div class="col mt-4"> </div>
+        <div class="col mt-4"> </div>
+        <h1 class=' h4 text-dark font-weight-bold text-bold mt-4'>Forgot Password</h1>
+               <form method="POST"> 
+                {% csrf_token %}
+                  <div class="row">
+            <div class=" d-flex justify-content-center align-items-center" >
+`              <div class="col-12 ">
+                  <div class="form-group">
+                      <span><i class="fas fa-envelope"></i>
+                        <input type="email" class="input-sm chat-input form-control" id="email"  placeholder="Email" name="email"/>
+                      </span> 
+                   </div>
+                </div>
+            </div>
+       <div class="row">
+         <div class="col">
+            <div class="wrapper mt-4">
+              <span class="group-btn">
+                 <button type="submit" class=" forgot btn btn-danger btn-md">Send Email</button> 
+              </span>
+            </div>
+          </div>
+       </div>
+        </form>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+
+{% endblock content %}
