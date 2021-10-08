@@ -53,7 +53,7 @@
       </nav>
       {% if request.user.is_staff %}
         {% for user in u%}
-        <a href="{% url 'edit' user.id user.username %}" class="btn btn-success"><i class="far fa-edit"></i>{{user.username }} EDIT</a>
+        <a href="{% url 'edit' user.id  %}" class="btn btn-success"><i class="far fa-edit"></i>{{user.username }} EDIT</a>
         <a href="{% url 'delete' user.id  %}" class="btn btn-danger"><i class="fas fa-trash"></i> DELETE</a>
         <div class="p-4 my-2 card bg-light shadow rounded border-bottom" style="max-width: 400px;">
           <h1 class="m-0 display-4">{{user.username}}</h1>

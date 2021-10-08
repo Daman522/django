@@ -51,6 +51,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+LOGIN_URL='/nlogin/'
+
 ROOT_URLCONF = 'mypro.urls'
 
 TEMPLATES = [

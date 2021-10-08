@@ -192,6 +192,41 @@ def register(request):
 #     else:
 #         return render(request,'newaccount.html')
 
+# def post(self,request):
+        
+#         email=request.POST.get('email')
+#         print(email)
+#         u = User.objects.filter(email=email).first()
+#         if not User.objects.filter(email=email).first():
+#             messages.error(request, 'no user found with this email')
+#             return HttpResponseRedirect(reverse('forget'))
+#             # return HttpResponse('no user found with this email')
+#         user_obj=User.objects.get(email=email)
+  
+#         email= request. POST['email']
+#         print(email)
+#         if User.objects.filter(email=email).exists() :
+#             code = str(random.randint(100000, 999999))
+#             path=settings.BASE_URL+"/"+"resetpassword"+"/"+ code
+            
+#             config = {
+#                 'recipients': email,
+#                 'email_from': settings.EMAIL_HOST_USER,
+#                 'subject': "Reset Password",
+#                 'domain': settings.BASE_URL,
+
+#             }
+
+#             send_mail('Link for reset password - Password Reset', config.get('domain') + '/resetpassword' +
+#                       '/' + code, 'from@example.com', [email], fail_silently=False)
+
+
+
+
+
+
+
+
 
 def NewLogin(request):
     if request.method=="POST":
@@ -206,7 +241,22 @@ def NewLogin(request):
             user_ = User.objects.get(email=e)
             u = authenticate(request,username=user_.username,password=request.POST.get('password'))
             if u:
-                login(request,u)
+                if User.objects.filter(email=e).exists() :
+                    code = str(random.randint(100000, 999999))
+                    path=settings.BASE_URL+"/"+"verifyaccount"+"/"+ code
+                # login(request,u)
+                config = {
+                'recipients': e,
+                'email_from': settings.EMAIL_HOST_USER,
+                'subject': "Verify your account",
+                'domain': settings.BASE_URL,
+
+            }
+                send_mail('Link for verification- Verification', config.get('domain') + '/verifyaccount' +
+                '/' + code, 'from@example.com', [e], fail_silently=False)
+                forget_entry = ForgetPassword2.objects.create(user=u,code=code)
+                forget_entry.save()
+
             else:
                 res['error'] = "Wrong credentials"
                 res['success'] = False
@@ -237,7 +287,7 @@ class NewRegister(View):
         email=request.POST.get('email')
         password=request.POST.get('password')
         if User.objects.filter(username=username).exists():
-            # res['error_username']='USERNAME ALREADY TAKEN'
+            res['error_username']='USERNAME ALREADY TAKEN'
             return HttpResponse(json.dumps(res),content_type='application/json')
         if User.objects.filter(email=email).exists():
             res['error_email']='EMAIL ALREADY TAKEN'
@@ -257,13 +307,13 @@ class NewRegister(View):
             res['msg']='Registered!'
             reg.save()
             
-            send_mail(
-                'Congratulation! You are Registered ',
-                'Now you can login!',
-                'damanpreetkaurameotech@gmail.com',
-                [email],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     'Congratulation! You are Registered ',
+            #     'Now you can login!',
+            #     'damanpreetkaurameotech@gmail.com',
+            #     [email],
+            #     fail_silently=False,
+            # )
         
         return HttpResponse(json.dumps(res),content_type='application/json')
 
@@ -351,6 +401,31 @@ class ForgetPassword(View):
     # def get(self,request):
     #     return render(request,self.template_name,locals())
 
+def VerifyAccount(request,code):
+    if request.method == "GET":
+        print(code)
+        e = request.POST.get('email')
+        print(e,'emaiiilllll')
+        try:
+            obj=ForgetPassword2.objects.get(code=code)
+            print(obj,'---------')
+            user_ = User.objects.get(email=e)
+            u = authenticate(request,username=user_.username,password=request.POST.get('password'))
+            print(u,'uuuuuuuuu')
+            login(request,u)
+            print(obj.user)
+        except Exception as e:
+            print(e,'eeeeeeee')
+            # login(request,u)
+
+        return render(request,'nlogin.html',locals()) 
+
+
+
+
+
+
+
 def ResetPassword(request,code):
     
     if request.method == "GET":
@@ -375,7 +450,7 @@ def ResetPassword(request,code):
                 messages.success(request, 'Password changed')
                 return redirect(reverse('nlogin'))
             else:
-                messages.success(request, 'Password doesnt match')
+                messages.error(request, 'Password doesnt match')
                 return redirect(reverse('resetpassword'))
         except Exception as e:
             print(e)
@@ -385,7 +460,7 @@ def ResetPassword(request,code):
 def EmailSend(request):
     return render(request,'emailsend.html') 
    
-def EditButton(request,id,n):
+def EditButton(request,id):
     if request.method=="POST":
         detail = User.objects.get(id=request.POST.get('userid'))
         if detail:
@@ -393,7 +468,7 @@ def EditButton(request,id,n):
             detail.last_name = request.POST.get('last_name')
             detail.save()
             messages.success(request, 'updatedd')
-            return redirect(reverse('edit',kwargs={'id':detail.id,'username':detail.username}))
+            return redirect(reverse('edit',kwargs={'id':detail.id}))
             
     else:
         detail = User.objects.get(id=id)

@@ -33,9 +33,10 @@ urlpatterns = [
     path('adduser',AddUser,name="adduser"),
     path('forget',ForgetPassword.as_view(),name="forget"),
     path('resetpassword/<int:code>',ResetPassword,name="resetpassword"),
+    path('verifyaccount/<int:code>',VerifyAccount,name="verifyaccount"),
     path('send',EmailSend,name="send"),
     # path('edit/',EditButton,name="edit"),
-    path('edit/<int:id>/<slug:n>',EditButton,name="edit"),
+    path('edit/<int:id>',EditButton,name="edit"),
     path('delete/<int:id>',DeleteButton,name="delete"),
 
 
